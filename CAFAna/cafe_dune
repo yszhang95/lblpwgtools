@@ -14,8 +14,8 @@ def makeParser():
                           help = 'quit at end of job')
     parser.add_argument('-bq', action = 'store_true',
                           help = 'shorthand for -b -q')
-    parser.add_argument('-nr', '--no-recompile', action = 'store_true',
-                        help = "don't unconditionally recompile, ie .C+ not .C++")
+    # parser.add_argument('-nr', '--no-recompile', action = 'store_true',
+    #                     help = "don't unconditionally recompile, ie .C+ not .C++")
     parser.add_argument('-mc', '--must-clean', action = 'store_true',
                         help = "Run the script with gROOT->SetMustClean(true);")
     parser.add_argument('-e', '--env', action='append',
@@ -147,11 +147,13 @@ if __name__ == '__main__':
     if opts['snapshot']:
         os.environ['CAFANA_USE_SNAPSHOTS'] = 'yes'
 
+    # Never compile
     if (script.endswith('.C') or script.endswith('.C+')):
         # Usually use .C++ to ensure the macro will always be recompiled, with
         # no possibility of version skew. .C+ if the speed-freak option has
         # been enabled.
-        suffix = '+' if opts['no_recompile'] else '++'
+        # suffix = '+' if opts['no_recompile'] else '++'
+        suffix = ''
 
         # root, then library loading, then script, then the function parameters
 
